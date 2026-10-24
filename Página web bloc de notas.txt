@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONEXIÓNTECH | Hardware y Software</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #0b1020;
+            color: #f3f6ff;
+            line-height: 1.7;
+        }
+
+        header {
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            background: #10182b;
+            border-bottom: 1px solid #27344f;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #43d9ff;
+        }
+
+        .etiqueta {
+            color: #43d9ff;
+            background: #14283d;
+            border: 1px solid #24506a;
+            border-radius: 30px;
+            padding: 7px 14px;
+            font-size: 13px;
+        }
+
+        /* MENÚ DE PESTAÑAS */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 13px 4%;
+            background: rgba(16, 24, 43, 0.97);
+            border-bottom: 1px solid #27344f;
+            backdrop-filter: blur(10px);
+        }
+
+        .pestana {
+            color: #f3f6ff;
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .pestana:hover {
+            color: #43d9ff;
+            background: #263451;
+        }
+
+        .pestana.activa {
+            color: #0b1020;
+            background: #43d9ff;
+            box-shadow: 0 0 16px #43d95533;
+        }
+
+        /* CONTENIDO */
+
+        main {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 25px;
+            min-height: 70vh;
+        }
+
+        .pagina-oculta {
+            display: none !important;
+        }
+
+        .hero {
+            min-height: 360px;
+            padding: 55px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            border-radius: 24px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 85% 25%, #6939a455, transparent 30%),
+                linear-gradient(135deg, #14213d, #172d48 55%, #20234a);
+            border: 1px solid #304563;
+            animation: aparecer 0.3s ease;
+        }
+
+        .mini-titulo {
+            color: #43d9ff;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 7vw, 70px);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
+
+        .hero h1 span {
+            color: #43d9ff;
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: #c5d0e5;
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .boton {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #43d9ff;
+            color: #0b1020;
+            font-weight: 800;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .boton:hover {
+            background: #8ceaff;
+            transform: translateY(-2px);
+        }
+
+        .boton-secundario {
+            background: #27344f;
+            color: #f3f6ff;
+            border: 1px solid #405271;
+        }
+
+        .boton-secundario:hover {
+            background: #354664;
+            color: #fff;
+        }
+
+        .intro,
+        .seccion {
+            margin-top: 25px;
+            padding: 30px;
+            background: #121b30;
+            border: 1px solid #27344f;
+            border-radius: 20px;
+            animation: aparecer 0.3s ease;
+        }
+
+        .seccion h2,
+        .intro h2 {
+            font-size: clamp(25px, 4vw, 35px);
+            margin-bottom: 12px;
+        }
+
+        .seccion h2 span,
+        .intro h2 span {
+            color: #43d9ff;
+        }
+
+        .subtitulo {
+            color: #b9c6dc;
+            margin-bottom: 25px;
+        }
+
+        .seccion h3 {
+            color: #43d9ff;
+            margin-bottom: 8px;
+        }
+
+        .seccion p {
+            color: #d1daea;
+            margin-bottom: 12px;
+        }
+
+        .seccion ul {
+            padding-left: 22px;
+            color: #d1daea;
+        }
+
+        .seccion li {
+            margin-bottom: 7px;
+        }
+
+        .tarjetas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 22px;
+        }
+
+        .tarjeta {
+            background: #18243c;
+            border: 1px solid #30415e;
+            border-radius: 16px;
+            padding: 22px;
+            transition: 0.25s;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-5px);
+            border-color: #43d9ff;
+            box-shadow: 0 8px 25px #00000022;
+        }
+
+        .emoji {
+            font-size: 38px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .tarjeta h3 {
+            color: #43d9ff;
+        }
+
+        .tarjeta p {
+            margin-top: 8px;
+            margin-bottom: 0;
+        }
+
+        .nota {
+            margin-top: 22px;
+            padding: 18px;
+            background: #14283d;
+            border-left: 4px solid #43d9ff;
+            border-radius: 8px;
+            color: #dce8f7;
+        }
+
+        /* TABLA */
+
+        .tabla-contenedor {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px;
+            border-bottom: 1px solid #30415e;
+        }
+
+        th {
+            background: #1c2b46;
+            color: #43d9ff;
+        }
+
+        td {
+            color: #d1daea;
+        }
+
+        tr:hover td {
+            background: #18243c;
+        }
+
+        /* VIDEOJUEGO */
+
+        .juego-contenedor {
+            background: #080d19;
+            border: 1px solid #30415e;
+            border-radius: 15px;
+            padding: 12px;
+            margin-top: 20px;
+        }
+
+        .juego {
+            display: block;
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        /* CUESTIONARIO */
+
+        .pregunta {
+            padding: 20px;
+            background: #18243c;
+            border: 1px solid #30415e;
+            border-radius: 13px;
+            margin-bottom: 18px;
+        }
+
+        .pregunta h3 {
+            color: #f3f6ff;
+            margin-bottom: 12px;
+        }
+
+        .opcion {
+            display: block;
+            padding: 9px 12px;
+            margin-top: 8px;
+            background: #10182b;
+            border: 1px solid #30415e;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #d1daea;
+        }
+
+        .opcion:hover {
+            border-color: #43d9ff;
+        }
+
+        .opcion input {
+            margin-right: 8px;
+            accent-color: #43d9ff;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .correcto {
+            color: #9fffc3;
+            background: #14372c;
+            border: 1px solid #247650;
+        }
+
+        .incorrecto {
+            color: #ffd0d0;
+            background: #3a202a;
+            border: 1px solid #80404e;
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px 15px;
+            margin-top: 25px;
+            background: #10182b;
+            border-top: 1px solid #27344f;
+            color: #aebbd1;
+            font-size: 14px;
+        }
+
+        footer span {
+            color: #43d9ff;
+            font-weight: bold;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 650px) {
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            nav {
+                gap: 5px;
+                padding: 10px;
+            }
+
+            .pestana {
+                padding: 9px 10px;
+                font-size: 12px;
+            }
+
+            main {
+                padding: 14px;
+            }
+
+            .hero {
+                padding: 35px 22px;
+            }
+
+            .intro,
+            .seccion {
+                padding: 22px 17px;
+            }
+
+            .juego {
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">CONEXIÓN<span>TECH.</span></div>
+        <div class="etiqueta">💻 Tecnología e Informática · Grado 8°</div>
+    </header>
+
+    <nav aria-label="Menú principal">
+        <button class="pestana activa" data-pagina="inicio">🏠 Inicio</button>
+        <button class="pestana" data-pagina="hardware">🖥️ Hardware</button>
+        <button class="pestana" data-pagina="software">⚙️ Software</button>
+        <button class="pestana" data-pagina="clasificacion">📚 Clasificación</button>
+        <button class="pestana" data-pagina="comparacion">⚡ Diferencias</button>
+        <button class="pestana" data-pagina="juego">🎮 Videojuego</button>
+        <button class="pestana" data-pagina="reto">🏆 Reto final</button>
+    </nav>
+
+    <main>
+
+        <!-- INICIO -->
+
+        <section class="hero" id="inicio">
+            <div class="mini-titulo">Tu mundo digital empieza aquí</div>
+            <h1>¿Qué hay detrás de tu <span>pantalla?</span></h1>
+            <p>
+                Descubre las piezas y los programas que hacen funcionar
+                tu computador. Aprende con ejemplos, explora y pon a prueba
+                tus conocimientos.
+            </p>
+            <button class="boton" onclick="mostrarPagina('hardware')">
+                ¡Empezar a explorar! →
+            </button>
+        </section>
+
+        <section class="intro" id="introduccion">
+            <h2>Bienvenido a <span>CONEXIÓNTECH</span></h2>
+            <p>
+                ¿Alguna vez te has preguntado cómo hace tu computador para
+                abrir un juego, reproducir música o permitirte hacer una tarea?
+                Todo esto es posible gracias a dos elementos fundamentales:
+                el hardware y el software.
+            </p>
+            <p>
+                En esta página aprenderás qué significa cada uno, cuáles son
+                sus tipos y cómo trabajan juntos. No necesitas ser un experto:
+                solo tener curiosidad por la tecnología.
+            </p>
+
+            <div class="tarjetas">
+                <article class="tarjeta">
+                    <span class="emoji">🧩</span>
+                    <h3>Conoce</h3>
+                    <p>Identifica las partes físicas y los programas de un computador.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">🔍</span>
+                    <h3>Explora</h3>
+                    <p>Descubre ejemplos de tecnología que utilizas todos los días.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">🎮</span>
+                    <h3>Diviértete</h3>
+                    <p>Practica lo aprendido con un videojuego y un reto final.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- HARDWARE -->
+
+        <section class="seccion pagina-oculta" id="hardware">
+            <div class="mini-titulo">Nivel 01 · Las partes físicas</div>
+            <h2>¿Qué es el <span>hardware?</span></h2>
+
+            <p>
+                El hardware es el conjunto de partes físicas de un computador,
+                es decir, todo lo que podemos ver y tocar. Cada componente
+                cumple una función para que el equipo pueda trabajar.
+            </p>
+
+            <div class="tarjetas">
+                <article class="tarjeta">
+                    <span class="emoji">⌨️</span>
+                    <h3>Teclado</h3>
+                    <p>Permite escribir letras, números y otros caracteres.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">🖱️</span>
+                    <h3>Ratón o mouse</h3>
+                    <p>Sirve para mover el cursor, seleccionar y abrir elementos.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">🖥️</span>
+                    <h3>Monitor</h3>
+                    <p>Muestra imágenes, textos, videos y los resultados de las tareas.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">🧠</span>
+                    <h3>Procesador</h3>
+                    <p>Ejecuta instrucciones y realiza operaciones para que el equipo funcione.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">💾</span>
+                    <h3>Memoria RAM</h3>
+                    <p>Mantiene temporalmente los datos de los programas que están en uso.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">📦</span>
+                    <h3>Disco o SSD</h3>
+                    <p>Guarda archivos, documentos, aplicaciones y el sistema operativo.</p>
+                </article>
+            </div>
+
+            <div class="nota">
+                <strong>Dato curioso:</strong> cuando juegas en el computador,
+                el procesador, la memoria, la pantalla y otros componentes
+                trabajan juntos para que puedas jugar.
+            </div>
+        </section>
+
+        <!-- SOFTWARE -->
+
+        <section class="seccion pagina-oculta" id="software">
+            <div class="mini-titulo">Nivel 02 · Los programas</div>
+            <h2>¿Qué es el <span>software?</span></h2>
+
+            <p>
+                El software es el conjunto de programas, aplicaciones e
+                instrucciones que le indican al computador qué hacer.
+                No podemos tocarlo físicamente, pero podemos utilizarlo
+                a través de la pantalla.
+            </p>
+
+            <div class="tarjetas">
+                <article class="tarjeta">
+                    <span class="emoji">🪟</span>
+                    <h3>Sistema operativo</h3>
+                    <p>Administra los recursos del equipo y permite utilizarlo.</p>
+                    <p><strong>Ejemplos:</strong> Windows, Linux y Android.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">📝</span>
+                    <h3>Programas de trabajo</h3>
+                    <p>Ayudan a crear documentos, presentaciones y hojas de cálculo.</p>
+                    <p><strong>Ejemplos:</strong> Word y PowerPoint.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">🌐</span>
+                    <h3>Navegadores</h3>
+                    <p>Permiten visitar páginas web y buscar información en internet.</p>
+                    <p><strong>Ejemplos:</strong> Chrome y Firefox.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">🎮</span>
+                    <h3>Videojuegos</h3>
+                    <p>Son programas creados para jugar, explorar mundos y superar desafíos.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">🎨</span>
+                    <h3>Diseño y edición</h3>
+                    <p>Permiten editar imágenes, crear ilustraciones y producir contenido.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">🛡️</span>
+                    <h3>Seguridad</h3>
+                    <p>Ayuda a detectar amenazas y proteger la información del equipo.</p>
+                </article>
+            </div>
+
+            <div class="nota">
+                <strong>Ejemplo:</strong> puedes tocar el teclado, pero no puedes
+                tocar físicamente el programa que utilizas para escribir una tarea.
+                El teclado es hardware y el programa es software.
+            </div>
+        </section>
+
+        <!-- CLASIFICACIÓN -->
+
+        <section class="seccion pagina-oculta" id="clasificacion">
+            <div class="mini-titulo">Nivel 03 · Tipos y funciones</div>
+            <h2>Clasificación del <span>hardware y software</span></h2>
+
+            <p class="subtitulo">
+                Los componentes y programas se pueden organizar según la función
+                que cumplen.
+            </p>
+
+            <h3>Tipos de hardware</h3>
+
+            <div class="tarjetas">
+                <article class="tarjeta">
+                    <span class="emoji">🎤</span>
+                    <h3>Entrada</h3>
+                    <p>Permiten introducir información al computador.</p>
+                    <p><strong>Ejemplos:</strong> teclado, mouse, micrófono y cámara.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">🔊</span>
+                    <h3>Salida</h3>
+                    <p>Presentan la información que produce el equipo.</p>
+                    <p><strong>Ejemplos:</strong> monitor, impresora y parlantes.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">💽</span>
+                    <h3>Almacenamiento</h3>
+                    <p>Permiten guardar información para utilizarla después.</p>
+                    <p><strong>Ejemplos:</strong> disco SSD, disco duro y memoria USB.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">🧠</span>
+                    <h3>Procesamiento</h3>
+                    <p>Se encargan de ejecutar operaciones y procesar datos.</p>
+                    <p><strong>Ejemplo:</strong> el procesador o CPU.</p>
+                </article>
+            </div>
+
+            <h3 style="margin-top: 30px;">Tipos de software</h3>
+
+            <div class="tarjetas">
+                <article class="tarjeta">
+                    <span class="emoji">⚙️</span>
+                    <h3>Software de sistema</h3>
+                    <p>Permite que el computador funcione y administra sus recursos.</p>
+                    <p><strong>Ejemplo:</strong> Windows.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">📚</span>
+                    <h3>Software de aplicación</h3>
+                    <p>Ayuda a realizar actividades concretas, como escribir o dibujar.</p>
+                    <p><strong>Ejemplo:</strong> Word.</p>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="emoji">💻</span>
+                    <h3>Software de programación</h3>
+                    <p>Incluye herramientas para crear y probar otros programas.</p>
+                    <p><strong>Ejemplos:</strong> editores de código y compiladores.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- DIFERENCIAS -->
+
+        <section class="seccion pagina-oculta" id="comparacion">
+            <div class="mini-titulo">Nivel 04 · Aprende a diferenciarlos</div>
+            <h2>Hardware vs. <span>Software</span></h2>
+
+            <p>
+                Aunque son diferentes, ambos se necesitan para que un computador
+                pueda realizar la mayoría de sus tareas.
+            </p>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Hardware</th>
+                            <th>Software</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>¿Qué es?</td>
+                            <td>Las partes físicas del equipo.</td>
+                            <td>Los programas e instrucciones.</td>
+                        </tr>
+                        <tr>
+                            <td>¿Se puede tocar?</td>
+                            <td>Sí, físicamente.</td>
+                            <td>No, no como un objeto físico.</td>
+                        </tr>
+                        <tr>
+                            <td>Ejemplos</td>
+                            <td>Teclado, monitor y procesador.</td>
+                            <td>Windows, Chrome y videojuegos.</td>
+                        </tr>
+                        <tr>
+                            <td>¿Para qué sirve?</td>
+                            <td>Permite realizar las operaciones físicas del equipo.</td>
+                            <td>Indica qué tareas debe realizar el equipo.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="nota">
+                <strong>¡Recuerda!</strong> el hardware es como el cuerpo de un
+                computador y el software es como el conjunto de instrucciones
+                que le permite realizar tareas. Los dos trabajan en equipo.
+            </div>
+        </section>
+
+        <!-- VIDEOJUEGO -->
+
+        <section class="seccion pagina-oculta" id="juego">
+            <div class="mini-titulo">Zona gamer · Aprende jugando</div>
+            <h2>¡Hora de jugar! <span>🎮</span></h2>
+
+            <p>
+                Llegó el momento de poner a prueba lo que aprendiste.
+                Juega, explora y demuestra que ya sabes reconocer el hardware
+                y el software.
+            </p>
+
+            <div class="nota">
+                <strong>Tu misión:</strong> completa los desafíos de tu videojuego
+                y presta atención a los ejemplos que aparecen durante la actividad.
+            </div>
+
+            <div class="juego-contenedor">
+                <iframe
+                    class="juego"
+                    id="marcoJuego"
+                    src="Videojuego.html"
+                    title="Videojuego educativo de hardware y software"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <p style="margin-top: 15px;">
+                Si el juego no aparece, verifica que el archivo
+                <strong>Videojuego.html</strong> esté en la misma carpeta
+                que este archivo.
+            </p>
+        </section>
+
+        <!-- RETO FINAL -->
+
+        <section class="seccion pagina-oculta" id="reto">
+            <div class="mini-titulo">Nivel final · Demuestra lo que sabes</div>
+            <h2>El reto <span>CONEXIÓNTECH</span> 🏆</h2>
+
+            <p class="subtitulo">
+                Responde las cinco preguntas y descubre cuántas acertaste.
+                ¡Lee con atención antes de elegir!
+            </p>
+
+            <form id="cuestionario">
+
+                <div class="pregunta">
+                    <h3>1. ¿Cuál de estos elementos es hardware?</h3>
+
+                    <label class="opcion">
+                        <input type="radio" name="p1" value="a" required>
+                        Microsoft Word
+                    </label>
+
+                    <label class="opcion">
+                        <input type="radio" name="p1" value="b">
+                        Teclado
+                    </label>
+
+                    <label class="opcion">
+                        <input type="radio" name="p1" value="c">
+                        Windows
+                    </label>
+                </div>
+
+                <div class="pregunta">
+                    <h3>2. ¿Qué es el software?</h3>
+
+                    <label class="opcion">
+                        <input type="radio" name="p2" value="a" required>
+                        Las partes físicas del computador
+                    </label>
+
+                    <label class="opcion">
+                        <input type="radio" name="p2" value="b">
+                        Los cables y conectores
+                    </label>
+
+                    <label class="opcion">
+                        <input type="radio" name="p2" value="c">
+                        Los programas e instrucciones
+                    </label>
+                </div>
+
+                <div class="pregunta">
+                    <h3>3. ¿Cuál es un dispositivo de entrada?</h3>
+
+                    <label class="opcion">
+                        <input type="radio" name="p3" value="a" required>
+                        Impresora
+                    </label>
+
+                    <label class="opcion">
+                        <input type="radio" name="p3" value="b">
+                        Mouse
+                    </label>
+
+                    <label class="opcion">
+                        <input type="radio" name="p3" value="c">
+                        Parlantes
+                    </label>
+                </div>
+
+                <div class="pregunta">
+                    <h3>4. ¿Cuál es un ejemplo de sistema operativo?</h3>
+
+                    <label class="opcion">
+                        <input type="radio" name="p4" value="a" required>
+                        Windows
+                    </label>
+
+                    <label class="opcion">
+                        <input type="radio" name="p4" value="b">
+                        Teclado
+                    </label>
+
+                    <label class="opcion">
+                        <input type="radio" name="p4" value="c">
+                        Monitor
+                    </label>
+                </div>
+
+                <div class="pregunta">
+                    <h3>5. ¿Cómo trabajan el hardware y el software?</h3>
+
+                    <label class="opcion">
+                        <input type="radio" name="p5" value="a" required>
+                        No se necesitan entre sí
+                    </label>
+
+                    <label class="opcion">
+                        <input type="radio" name="p5" value="b">
+                        Trabajan juntos para realizar tareas
+                    </label>
+
+                    <label class="opcion">
+                        <input type="radio" name="p5" value="c">
+                        El hardware es un programa
+                    </label>
+                </div>
+
+                <button type="submit" class="boton">
+                    Revisar mis respuestas 🚀
+                </button>
+
+                <button type="reset" class="boton boton-secundario">
+                    Volver a intentarlo
+                </button>
+
+            </form>
+
+            <div id="resultado" role="status" aria-live="polite"></div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p><span>CONEXIÓNTECH.</span> · Aprende, explora y conecta con la tecnología.</p>
+        <p>Recurso educativo de Tecnología e Informática · Grado octavo</p>
+    </footer>
+
+    <script>
+        // CAMBIO ENTRE PESTAÑAS
+
+        const pestanas = document.querySelectorAll(".pestana");
+
+        const paginas = {
+            inicio: ["inicio", "introduccion"],
+            hardware: ["hardware"],
+            software: ["software"],
+            clasificacion: ["clasificacion"],
+            comparacion: ["comparacion"],
+            juego: ["juego"],
+            reto: ["reto"]
+        };
+
+        const elementos = [
+            document.getElementById("inicio"),
+            document.getElementById("introduccion"),
+            ...document.querySelectorAll(".seccion")
+        ];
+
+        function mostrarPagina(nombre) {
+            if (!paginas[nombre]) {
+                return;
+            }
+
+            // Ocultar todas las páginas
+            elementos.forEach(elemento => {
+                elemento.classList.add("pagina-oculta");
+            });
+
+            // Mostrar solo el contenido de la pestaña seleccionada
+            paginas[nombre].forEach(id => {
+                const elemento = document.getElementById(id);
+
+                if (elemento) {
+                    elemento.classList.remove("pagina-oculta");
+                }
+            });
+
+            // Marcar la pestaña seleccionada
+            pestanas.forEach(pestana => {
+                const seleccionada =
+                    pestana.dataset.pagina === nombre;
+
+                pestana.classList.toggle("activa", seleccionada);
+                pestana.setAttribute(
+                    "aria-pressed",
+                    seleccionada ? "true" : "false"
+                );
+            });
+
+            // Volver al inicio de la página
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        pestanas.forEach(pestana => {
+            pestana.addEventListener("click", () => {
+                mostrarPagina(pestana.dataset.pagina);
+            });
+        });
+
+        // Abrir Inicio al cargar la página
+        mostrarPagina("inicio");
+
+
+        // CUESTIONARIO INTERACTIVO
+
+        const cuestionario = document.getElementById("cuestionario");
+        const resultado = document.getElementById("resultado");
+
+        const respuestasCorrectas = {
+            p1: "b",
+            p2: "c",
+            p3: "b",
+            p4: "a",
+            p5: "b"
+        };
+
+        cuestionario.addEventListener("submit", function(evento) {
+            evento.preventDefault();
+
+            let puntos = 0;
+            const total = Object.keys(respuestasCorrectas).length;
+
+            for (const pregunta in respuestasCorrectas) {
+                const seleccionada = cuestionario.querySelector(
+                    'input[name="' + pregunta + '"]:checked'
+                );
+
+                if (
+                    seleccionada &&
+                    seleccionada.value === respuestasCorrectas[pregunta]
+                ) {
+                    puntos++;
+                }
+            }
+
+            resultado.style.display = "block";
+
+            if (puntos === total) {
+                resultado.className = "correcto";
+                resultado.textContent =
+                    "🏆 ¡Excelente! Obtuviste " + puntos + " de " + total +
+                    ". ¡Dominas los conceptos de hardware y software!";
+            } else if (puntos >= 3) {
+                resultado.className = "correcto";
+                resultado.textContent =
+                    "👏 ¡Vas muy bien! Obtuviste " + puntos + " de " + total +
+                    ". Repasa las respuestas que te faltaron e inténtalo otra vez.";
+            } else {
+                resultado.className = "incorrecto";
+                resultado.textContent =
+                    "💪 Obtuviste " + puntos + " de " + total +
+                    ". ¡No te rindas! Revisa las pestañas de aprendizaje y vuelve a intentarlo.";
+            }
+
+            resultado.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        });
+
+        // Limpiar el resultado cuando se reinicie el cuestionario
+        cuestionario.addEventListener("reset", function() {
+            resultado.style.display = "none";
+            resultado.textContent = "";
+            resultado.className = "";
+        });
+    </script>
+
+</body>
+</html>

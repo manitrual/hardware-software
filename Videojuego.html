@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Misión Tecnológica: Aventura de plataformas</title>
+<style>
+*{box-sizing:border-box}body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#06181a;font-family:"Trebuchet MS","Segoe UI",sans-serif;color:#10282a}
+#st{position:relative;width:min(100vw,calc(100vh*960/520));aspect-ratio:960/520;overflow:hidden;font-size:clamp(11px,1.7vw,17px)}
+canvas{width:100%;height:100%;display:block}
+#mu{position:absolute;top:3px;right:6px;font-size:1.3em;background:#0006;border:1px solid #fff5;border-radius:8px;color:#fff;cursor:pointer}
+#ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#05151af0;padding:2%}
+.bx{background:#f6faf7;border-radius:16px;padding:1.4em;max-width:36em;max-height:96%;overflow:auto;text-align:center;box-shadow:0 .4em 0 #082021}
+.bx h1,.bx h2{font-family:"Arial Black",Impact,sans-serif;margin:.2em 0}.bx p{margin:.5em 0}.big{font-size:3em}
+.k{font-size:.85em;color:#4a6a66}.b{font:inherit;font-weight:700;padding:.6em 1.2em;margin:.4em;border:0;border-radius:10px;background:#f2a33a;box-shadow:0 .2em 0 #a96a12;cursor:pointer;color:#10282a}
+.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:.4em}.kp div{background:#e3efe9;border-radius:8px;padding:.4em}.kp b{display:block;font-size:1.4em}
+table{width:100%;border-collapse:collapse;font-size:.9em}td,th{padding:.3em;border-bottom:1px solid #c5d8d1;text-align:left}ul{text-align:left;margin:.3em 0}
+#ask{position:absolute;left:8%;right:8%;bottom:4%;background:#f6faf7;border:.25em solid #f2a33a;border-radius:14px;padding:.8em 1em;box-shadow:0 .3em 0 #0008}
+#ask p{margin:.2em 0}.o{display:block;width:100%;text-align:left;font:inherit;margin:.3em 0;padding:.5em .8em;border:2px solid #c5d8d1;border-radius:9px;background:#fff;cursor:pointer;color:#10282a}
+.o:hover{border-color:#f2a33a}.o.g{background:#d3f7ea;border-color:#13a37f}.o.x{background:#ffe0e0;border-color:#ff6b6b}
+.hw{text-align:left;line-height:1.5;margin:.3em 0;padding-left:1.4em}#av{display:flex;gap:.5em;justify-content:center;flex-wrap:wrap}.avb{font:inherit;font-size:.85em;background:#e3efe9;border:3px solid transparent;border-radius:12px;padding:.3em .6em;cursor:pointer;color:#10282a}.avb.on{border-color:#f2a33a;background:#fff3d6}.avb canvas{display:block;margin:auto}
+.as{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:.6em;text-align:left}.sl{display:grid;grid-template-columns:1fr 1fr;gap:.4em}.sx{border:2px dashed #8aa;border-radius:10px;padding:.4em;font-size:.82em;cursor:pointer;min-height:5em;background:#eef6f2}.sx.f{border:2px solid #13a37f;background:#d3f7ea;cursor:default}.df{background:#fff3d6;border-radius:8px;padding:.5em;min-height:3em}
+#ov.t{background:#05151a66}.ti{background:none;box-shadow:none;max-width:58em;color:#fff}
+.lg{font-family:"Arial Black",Impact,sans-serif;font-size:3.4em;line-height:1;margin:.1em 0;background:linear-gradient(#fff 20%,#4de0c0 60%,#f2a33a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 .07em 0 #082021)}
+.rb{display:inline-block;background:#f2a33a;color:#10282a;font-weight:700;padding:.2em 1em;border-radius:99px;transform:rotate(-2deg)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.8em;margin-top:.8em}.card2{background:#f6faf7;color:#10282a;border-radius:16px;padding:.8em;text-align:center;box-shadow:0 .3em 0 #082021}.card2 .hw{font-size:.85em;margin:.2em 0}
+.fl{display:flex;gap:.6em;justify-content:center}.fl canvas{animation:fl 2s ease-in-out infinite}.pl{font-size:1.4em;padding:.5em 1.6em;animation:pu 1.4s infinite}
+@keyframes fl{50%{transform:translateY(-.5em)}}@keyframes pu{50%{transform:scale(1.06)}}@media(max-width:700px){.two{grid-template-columns:1fr}}
+#ask{max-height:94%;overflow:auto;bottom:2%;font-size:1.1em}#ask p:nth-child(2){font-size:1.2em;font-weight:700}
+.sc{position:relative;background:#243b4a;border-radius:14px;height:23em;overflow:hidden;border:3px solid #10282a}.pcb{position:absolute;left:3%;top:4%;width:64%;height:92%;background:#1e8e4f;border-radius:10px;box-shadow:inset 0 0 0 3px #4de0c0aa}
+.sk{position:absolute;border:2px dashed #fffa;border-radius:8px;color:#fff;font-size:.68em;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;background:#0005;padding:.15em;overflow:hidden}.sk.f{border:2px solid #7dffb5;background:#0a3a2a}.sk.hl{animation:pu .5s 5;border-color:#f2a33a;background:#f2a33a55}
+.dm{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:.6em}.ck{font-size:.8em;margin:0 0 .4em;padding:0;list-style:none}.pf{background:#fff3d6;border-radius:10px;padding:.5em;font-size:.85em;min-height:9em}
+.tr{display:flex;flex-wrap:wrap;gap:.3em;margin:.4em 0}.tr .o{width:auto;margin:0;padding:.3em .6em;font-size:.85em}@media(max-width:700px){.dm{grid-template-columns:1fr}}
+</style></head><body>
+<div id="st"><canvas id="c" width="1920" height="1040"></canvas><button id="mu" title="Sonido (M)">🔊</button><div id="ask" hidden></div><div id="ov"></div></div>
+<script>
+"use strict";
+var $=function(i){return document.getElementById(i)},cv=$("c"),x=cv.getContext("2d");
+var T=40,VW=960,VH=520,mode="menu",G,L,P,cam=0,tm=0,shake=0,tst=null,parts=[],mute=false,AC=null,keys={},jbuf=0,jh=false,AS=null;
+var INFO={k:["⌨️","Teclado","dispositivo de entrada: sirve para escribir."],m:["🖥️","Monitor","dispositivo de salida: muestra la información."],r:["🖱️","Ratón","dispositivo de entrada: mueve el puntero."],a:["🧩","Memoria RAM","memoria temporal de trabajo."],p:["🧠","Procesador","ejecuta instrucciones y hace cálculos."],
+o:["🪟","Sistema operativo","software que administra el equipo."],w:["📝","Procesador de texto","software para escribir documentos."],b:["🌐","Navegador","software para visitar páginas web."],g:["🎮","Videojuego","software de entretenimiento."],d:["🎨","Programa de dibujo","software para crear imágenes."]};
+var LV=[
+{e:"🔍",n:"Nivel 1: Detectives del hardware",t:"La placa base del computador virtual está dañada. El hardware son las partes físicas del computador. Recoge los 5 componentes, resuelve los retos para abrir las puertas y llega a la bandera.",ins:"Detective del Hardware",
+w:64,gap:[[14,16],[31,33]],pl:[[15,8,2],[38,8,3],[41,6,3]],sp:[[10,10],[11,10],[50,10],[51,10]],bug:[[35,42],[53,58]],door:[26,48,60],cp:[24,45],goal:62,
+it:[[6,10,"k"],[20,10,"m"],[29,10,"r"],[42,5,"a"],[55,10,"p"]],co:[[3,10,2],[8,9,3],[15,7,2],[23,10,2],[36,7,3],[44,10,2],[56,9,2]],
+ch:{m:{c:"Clasificación de dispositivos",q:"El monitor es un dispositivo de…",ok:"Salida: muestra la información",no:["Entrada: envía datos al equipo","Almacenamiento: guarda archivos"],x:"El monitor muestra imágenes y texto al usuario.",dr:0},
+a:{c:"Funciones de componentes",q:"¿Qué pasa con los datos de la memoria RAM al apagar el computador?",ok:"Se borran: es memoria temporal",no:["Se guardan para siempre","Pasan al monitor"],x:"La RAM es memoria de trabajo; para guardar de forma permanente se usa el disco duro.",dr:1},
+p:{c:"Funciones de componentes",q:"¿Cuál es la función del procesador?",ok:"Ejecutar instrucciones y hacer cálculos",no:["Mostrar imágenes","Imprimir documentos"],x:"El procesador es el cerebro: interpreta las instrucciones de los programas.",dr:2}}},
+{e:"🧭",n:"Nivel 2: El mundo del software",t:"Entras al mundo digital. El software son los programas que le dan órdenes al hardware. Recupera los programas, resuelve los retos para activar los sistemas y abre el camino.",ins:"Explorador del Software",
+w:64,gap:[[12,15],[26,29],[40,43]],pl:[[13,9,2],[27,9,2],[41,9,2],[45,8,3],[49,6,3],[8,8,3]],sp:[[9,10],[10,10],[38,10],[56,10],[57,10]],bug:[[31,35],[54,60]],door:[20,36,53],cp:[25,44],goal:62,
+it:[[6,10,"o"],[23,10,"w"],[33,10,"b"],[46,7,"g"],[50,5,"d"]],co:[[4,10,3],[13,8,2],[22,8,3],[27,8,2],[41,8,2],[58,9,3]],
+ch:{o:{c:"Reconocimiento de programas",q:"¿Cuál es la función del sistema operativo?",ok:"Administrar el equipo y permitir usar otros programas",no:["Solo guardar fotos","Reemplazar al teclado"],x:"Windows, Linux, Android o macOS organizan los recursos del computador.",dr:0},
+b:{c:"Reconocimiento de programas",q:"Debes investigar para una tarea. ¿Qué software usas?",ok:"Un navegador web",no:["Un procesador de texto","Un videojuego"],x:"El navegador permite visitar páginas de internet.",dr:1},
+g:{c:"Diferencia hardware/software",q:"Un videojuego, ¿es hardware o software?",ok:"Software: es un programa",no:["Hardware: se puede tocar","Hardware: es una pieza interna"],x:"Los videojuegos son programas; necesitan hardware para ejecutarse.",dr:2}}},
+{e:"🛠️",n:"Nivel 3: El laboratorio de reparación",t:"Un robot se averió. En cada estación de reparación, lleva 1 componente físico y 1 programa (mochila de 2 objetos). Si te equivocas, los objetos vuelven a su lugar. Repara las 3 fallas y reinicia al robot.",ins:"Reparador Experto",
+w:60,gap:[[10,12],[26,28],[42,44]],pl:[[11,9,2],[27,9,2],[43,9,2],[4,8,3],[22,8,3],[49,8,3]],sp:[[15,10],[30,10],[45,10]],bug:[[31,35],[46,51]],door:[20,38,55],cp:[9,25,39],goal:58,
+it:[[5,7,"k"],[13,10,"w"],[8,10,"a"],[23,7,"m"],[33,10,"b"],[21,10,"p"],[31,10,"r"],[40,10,"r"],[47,10,"g"],[50,7,"d"]],co:[[3,10,2],[16,8,2],[24,6,2],[36,9,2],[44,8,2],[52,9,2]],
+st:[[18,"kw","Falla 1: el robot no puede ESCRIBIR. Lleva 1 pieza física y 1 programa.","","entrada (envía datos al equipo)"],[36,"mb","Falla 2: el robot no puede MOSTRAR páginas web en pantalla. 1 pieza física + 1 programa.","","salida (muestra información)"],[53,"rd","Falla 3: el robot no puede DIBUJAR moviendo el puntero. 1 pieza física + 1 programa.","","entrada (controla el puntero)"]],
+fin:{c:"Importancia de la relación",q:"Reinicio final: ¿por qué el robot necesita hardware Y software?",ok:"El hardware es el cuerpo y el software son las instrucciones: se necesitan juntos",no:["El software funciona solo, sin hardware","El hardware funciona solo, sin programas"],x:"Sin programas el hardware no sabe qué hacer; sin hardware los programas no pueden ejecutarse."}}];
+var TH=[{a:"#0b2a2c",b:"#14504b",g:"#1d7a62",t:"#4de0c0"},{a:"#1b1040",b:"#5a1f7a",g:"#5b2a8f",t:"#ff6bd6"},{a:"#0d1b33",b:"#24456e",g:"#3a4a66",t:"#ffd166"}];
+// ---- sonido ----
+function snd(f,d,ty,v,e){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();var n=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();o.type=ty||"square";o.frequency.setValueAtTime(f,n);if(e)o.frequency.exponentialRampToValueAtTime(e,n+d);g.gain.setValueAtTime(v||.05,n);g.gain.exponentialRampToValueAtTime(.001,n+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(n+d)}catch(_){}}
+function fan(){[523,659,784,1047].forEach(function(f,i){setTimeout(function(){snd(f,.25,"triangle",.07)},i*120)})}
+$("mu").onclick=function(){mute=!mute;this.textContent=mute?"🔇":"🔊";this.blur()};
+// ---- utilidades ----
+function ovs(h,k){$("ov").innerHTML=h;$("ov").className=k||"";$("ov").style.display="flex"}function hide(){$("ov").style.display="none"}
+function toast(s){tst={s:s,t:420}}function lg(c,ok){G.log.push({lv:G.lv,c:c,ok:ok})}
+function spawn(px,py,n,c,s){for(var i=0;i<n;i++)parts.push({x:px,y:py,vx:(Math.random()-.5)*s,vy:(Math.random()-.9)*s,l:35+Math.random()*25,c:c})}
+function hit(a,b,c,d,e,f,g,h){return a<e+g&&a+c>e&&b<f+h&&b+d>f}
+function pct(a,b){return b?Math.round(a/b*100):0}
+// ---- flujo ----
+
+var HW="kmrap",SEL=0,AV=[{n:"Robot",b:"#ff9f43",h:"#e3edf2",v:"#10282a",a:0},{n:"Astronauta",b:"#4aa3ff",h:"#ffffff",v:"#12306a",a:1},{n:"Ninja",b:"#9b5de5",h:"#2b2b3a",v:"#ffd166",a:2},{n:"Gato tech",b:"#2ec4b6",h:"#ffd6a5",v:"#10282a",a:3}];
+INFO.h=["💽","Disco duro","guarda tus archivos de forma permanente."];
+var HOW=[["Recoge las 5 piezas brillantes: cada una te cuenta para qué sirve.","Monitor, RAM y procesador lanzan un reto rápido: acierta para abrir la puerta 🔒.","Esquiva pinchos y bichos rojos y llega a la bandera 🏁."],["Recupera los 5 programas: cada uno te dice qué tipo de software es.","Sistema operativo, navegador y videojuego lanzan un reto que abre una puerta 🔒.","Llega a la bandera 🏁 para ganar la insignia."],["Lee la falla en la barra superior: dice qué no puede hacer el robot.","Lleva 1 pieza física y 1 programa (mochila de 2) a la estación ⚠️. Si fallas, recibes una pista.","Con las 3 reparaciones, ve al robot 🤖: arma su computador pieza por pieza y responde la pregunta final."]];
+var ASM=[["p","Procesador","Aquí va el «cerebro»: la pieza que ejecuta las instrucciones.","Procesador (CPU): ejecuta las instrucciones y hace los cálculos."],["a","Memoria RAM","Aquí va la memoria de trabajo, rápida y temporal.","Memoria RAM: guarda temporalmente los datos de lo que usas; se borra al apagar."],["h","Disco duro","Aquí se guardan los archivos para siempre.","Disco duro: almacena tus archivos de forma permanente."],["m","Monitor","Aquí va el dispositivo de salida que muestra imágenes.","Monitor: dispositivo de salida que muestra imágenes y texto."],["k","Teclado","Aquí va el dispositivo de entrada para escribir.","Teclado: dispositivo de entrada para escribir letras y números."],["o","Sistema operativo","Aquí va el software que administra todo el equipo.","Sistema operativo: software que administra el equipo y permite usar otros programas."]];
+function pista(s){var h=L.inv.filter(function(i){return HW.indexOf(i.t)>-1}).length;return h===2?"Llevaste 2 piezas físicas: necesitas 1 pieza física y 1 programa.":h===0?"Llevaste 2 programas: necesitas 1 pieza física y 1 programa.":"Pista: la pieza física debe ser un dispositivo de "+s.kt+"."}
+function rc(c,f,a,b,w,h,r){c.fillStyle=f;c.beginPath();c.roundRect(a,b,w,h,r||0);c.fill()}
+function ico(c,t,cx,cy,s){c.save();c.translate(cx,cy);c.scale(s,s);var i;
+ if(t==="k"){rc(c,"#37474f",-18,-9,36,18,3);for(i=0;i<8;i++){rc(c,"#cfd8dc",-15+i*4,-6,3,3,1);rc(c,"#cfd8dc",-15+i*4,-1,3,3,1)}rc(c,"#cfd8dc",-10,4,20,3,1)}
+ else if(t==="m"){rc(c,"#263238",-18,-15,36,24,3);rc(c,"#4fc3f7",-15,-12,30,18,1);rc(c,"#fff6",-12,-10,12,4,1);rc(c,"#455a64",-3,9,6,5);rc(c,"#455a64",-10,14,20,3,1)}
+ else if(t==="r"){rc(c,"#eceff1",-9,-13,18,26,9);c.fillStyle="#90a4ae";c.fillRect(-.7,-13,1.4,12);c.fillRect(-9,-1,18,1.4);rc(c,"#ff6b6b",-2,-9,4,6,2)}
+ else if(t==="a"){rc(c,"#1e8e4f",-18,-8,36,16,2);for(i=0;i<4;i++)rc(c,"#222",-14+i*8,-5,6,8,1);for(i=0;i<9;i++)rc(c,"#ffd54f",-16+i*4,8,2,4)}
+ else if(t==="p"){for(i=0;i<6;i++){rc(c,"#ffd54f",-10+i*4,-17,2,5);rc(c,"#ffd54f",-10+i*4,12,2,5);rc(c,"#ffd54f",-17,-10+i*4,5,2);rc(c,"#ffd54f",12,-10+i*4,5,2)}rc(c,"#90a4ae",-12,-12,24,24,3);rc(c,"#37474f",-7,-7,14,14,2);rc(c,"#4de0c0",-3,-3,6,6,1)}
+ else if(t==="h"){rc(c,"#b0bec5",-16,-13,32,26,3);c.fillStyle="#37474f";c.beginPath();c.arc(-2,0,8,0,7);c.fill();c.fillStyle="#cfd8dc";c.beginPath();c.arc(-2,0,2.5,0,7);c.fill();c.strokeStyle="#455a64";c.lineWidth=2;c.beginPath();c.moveTo(11,-9);c.lineTo(3,-2);c.stroke()}
+ else if(t==="o"){rc(c,"#37474f",-17,-15,34,30,4);rc(c,"#f25022",-11,-9,10,8,1);rc(c,"#7fba00",1,-9,10,8,1);rc(c,"#00a4ef",-11,1,10,8,1);rc(c,"#ffb900",1,1,10,8,1)}
+ else if(t==="w"){rc(c,"#fff",-13,-16,26,32,3);rc(c,"#2b6cff",-13,-16,26,8,3);for(i=0;i<4;i++)rc(c,"#90a4ae",-9,-4+i*6,18-(i%2)*6,2.5,1)}
+ else if(t==="b"){c.fillStyle="#29b6f6";c.beginPath();c.arc(0,0,15,0,7);c.fill();c.fillStyle="#66bb6a";c.beginPath();c.ellipse(-4,-3,6,8,.4,0,7);c.fill();c.beginPath();c.ellipse(7,5,4,5,0,0,7);c.fill();c.strokeStyle="#fff9";c.lineWidth=1.5;c.beginPath();c.ellipse(0,0,7,15,0,0,7);c.moveTo(-15,0);c.lineTo(15,0);c.stroke()}
+ else if(t==="g"){rc(c,"#7e57c2",-18,-9,36,20,9);rc(c,"#fff",-13,-2,10,3,1);rc(c,"#fff",-10,-5,3,10,1);c.fillStyle="#ff6b6b";c.beginPath();c.arc(8,0,3,0,7);c.fill();c.fillStyle="#ffd54f";c.beginPath();c.arc(13,-3,3,0,7);c.fill()}
+ else if(t==="f"){rc(c,"#607d8b",-17,-12,34,24,3);c.strokeStyle="#cfd8dc";c.lineWidth=2;c.beginPath();c.arc(-5,0,8,0,7);c.stroke();c.fillStyle="#cfd8dc";c.beginPath();c.arc(-5,0,2,0,7);c.fill();rc(c,"#ffd54f",6,-8,8,16,2);rc(c,"#263238",8,-3,4,6,1)}
+ else if(t==="d"){c.fillStyle="#e0b98a";c.beginPath();c.ellipse(0,0,17,14,0,0,7);c.fill();[["#ff5252",-8,-5],["#ffd740",0,-9],["#69f0ae",8,-5],["#40c4ff",9,5]].forEach(function(q){c.fillStyle=q[0];c.beginPath();c.arc(q[1],q[2],3.5,0,7);c.fill()});c.fillStyle="#06181a";c.beginPath();c.arc(-4,5,4,0,7);c.fill()}
+ c.restore()}
+function mk(t,s){var c=document.createElement("canvas");c.width=c.height=s*3;c.style.width=c.style.height=s+"px";ico(c.getContext("2d"),t,s*1.5,s*1.5,s*3/44);return c}
+function body(c,A,run,air){var s=run?Math.sin(tm*.4)*6:0;c.fillStyle="#26323a";c.fillRect(-9+s,12,8,8-air/2);c.fillRect(2-s,12,8,8-air/2);rc(c,A.b,-11,-6,22,20,5);rc(c,"#0003",-15,-6,6,16,2);
+ if(A.a===3){c.fillStyle=A.h;c.beginPath();c.moveTo(-12,-18);c.lineTo(-9,-28);c.lineTo(-3,-21);c.fill();c.beginPath();c.moveTo(12,-18);c.lineTo(9,-28);c.lineTo(3,-21);c.fill()}
+ rc(c,A.h,-12,-21,24,17,6);rc(c,A.v,-2,-17,13,9,3);rc(c,A.a===2?"#ff3b6b":"#4de0c0",4,-15,4,4,1);
+ if(A.a===0){c.strokeStyle=A.h;c.lineWidth=2;c.beginPath();c.moveTo(-3,-21);c.lineTo(-3,-27);c.stroke();c.fillStyle=tm%60<30?"#ff6b6b":"#f2a33a";c.beginPath();c.arc(-3,-28,3,0,7);c.fill()}
+ if(A.a===1){c.strokeStyle="#bfe6ff";c.lineWidth=2;c.beginPath();c.ellipse(0,-13,16,13,0,0,7);c.stroke()}
+ if(A.a===2){rc(c,"#ff3b6b",-12,-17,24,4,1);c.beginPath();c.moveTo(-12,-15);c.lineTo(-20,-10);c.lineTo(-18,-16);c.fill()}}
+function player(){if(P.inv>0&&Math.floor(P.inv/4)%2)return;x.save();x.translate(P.x-cam+13,P.y+18);x.scale(P.f,1);body(x,AV[SEL],Math.abs(P.vx)>.8&&P.g,P.g?0:5);x.restore()}
+function tiles(){var th=L.th,I=LV.indexOf(L.d),c0=Math.floor(cam/T);for(var r=0;r<13;r++)for(var c=c0;c<=c0+25&&c<L.w;c++){var v=L.g[r][c],px=c*T-cam,py=r*T,top=!(r>0&&L.g[r-1][c]===1);
+ if(v===1){x.fillStyle=I===0?"#1a6b58":I===1?"#4b2380":"#3a4a66";x.fillRect(px,py,T,T);
+  if(I===0){x.fillStyle="#4de0c055";x.fillRect(px+6,py+14+((c+r)%3)*8,22,2);x.fillRect(px+28,py+14+((c+r)%3)*8,2,12);x.fillStyle="#4de0c0";x.beginPath();x.arc(px+30,py+28,3,0,7);x.fill()}
+  else if(I===1){x.fillStyle="#ffffff14";x.fillRect(px+4,py+12,T-8,T-16);x.fillStyle="#7df9ff55";x.fillRect(px+8,py+16,14,3);x.fillRect(px+8,py+24,22,3)}
+  else{x.fillStyle="#cfd8dc66";[[4,4],[T-8,4],[4,T-8],[T-8,T-8]].forEach(function(q){x.fillRect(px+q[0],py+q[1],4,4)})}
+  if(top){if(I===2){for(var q=0;q<4;q++){x.fillStyle=q%2?"#222":th.t;x.fillRect(px+q*10,py,10,8)}}else{x.fillStyle=th.t;x.fillRect(px,py,T,I===1?10:7);if(I===1){x.fillStyle="#fff8";x.fillRect(px+4,py+3,4,4)}}}
+  x.fillStyle="#0003";x.fillRect(px,py+T-3,T,3)}
+ else if(v>=10){x.fillStyle="#ffb703";x.fillRect(px+4,py,T-8,T);x.fillStyle="#7a4a00";for(var q=0;q<4;q++)x.fillRect(px+4,py+q*10+2,T-8,3);x.fillStyle="rgba(255,183,3,"+(.25+.15*Math.sin(tm/10))+")";x.fillRect(px-2,py,T+4,T);if(r===8){x.font="22px sans-serif";x.fillText("🔒",px+8,py+28)}}}}
+function menu(){G={lv:0,score:0,lives:3,log:[],coins:0,deaths:0,badges:[],sc0:0,co0:0};load(0);tst=null;mode="menu";
+ ovs('<div class="bx ti"><div class="fl" id="fl"></div><h1 class="lg">MISIÓN<br>TECNOLÓGICA</h1><p class="rb">El desafío del hardware y software</p><div class="two"><div class="card2"><b>🎮 Elige tu personaje</b><div id="av"></div><button class="b pl" id="go">▶ ¡JUGAR!</button></div><div class="card2"><b>📖 Cómo se juega</b><ol class="hw"><li>Muévete con <b>← →</b> (o A D) y salta con <b>Espacio</b>, <b>↑</b> o W.</li><li>Recoge 💎 cristales y piezas brillantes: cada una enseña algo.</li><li>Los <b>retos rápidos</b> se responden con clic o con las teclas 1 a 4 y abren las puertas 🔒.</li><li>Evita pinchos y bichos rojos (salta sobre ellos). Tienes 3 vidas por nivel y puntos de control 🚩.</li><li>Llega a la bandera 🏁 para ganar la insignia.</li><li>En el nivel 3 repararás un robot y armarás un computador. Sonido: tecla M.</li></ol></div></div></div>','t');
+ "kmrapobgd".split("").forEach(function(t,i){var c=mk(t,52);c.style.animationDelay=i*.2+"s";$("fl").appendChild(c)});
+ var h=$("av");AV.forEach(function(A,i){var b=document.createElement("button");b.className="avb"+(i===SEL?" on":"");var cn=document.createElement("canvas");cn.width=cn.height=160;cn.style.width=cn.style.height="64px";var c=cn.getContext("2d");c.translate(80,100);c.scale(2.75,2.75);body(c,A,0,0);b.appendChild(cn);b.appendChild(document.createTextNode(A.n));b.onclick=function(){SEL=i;Array.prototype.forEach.call(h.children,function(q,k){q.className="avb"+(k===i?" on":"")})};h.appendChild(b)});
+ $("go").onclick=function(){intro(0)}}
+function intro(i){mode="menu";G.lv=i;var d=LV[i];ovs('<div class="bx"><div class="big">'+d.e+'</div><h2>'+d.n+'</h2><p>'+d.t+'</p><p><b>Tu misión:</b></p><ul>'+HOW[i].map(function(q){return"<li>"+q+"</li>"}).join("")+'</ul><p class="k">Mover: ← → · Saltar: Espacio/↑ · Responder: clic o 1 a 4 · Sonido: M</p><button class="b" id="go">¡Jugar!</button></div>');
+ if(i===2){var e=document.createElement("div");e.className="df";e.innerHTML="<b>Ejemplo:</b> para ESCRIBIR hace falta una pieza física y un programa:<br>";e.appendChild(mk("k",40));e.appendChild(document.createTextNode(" teclado (hardware) + "));e.appendChild(mk("w",40));e.appendChild(document.createTextNode(" procesador de texto (software)"));$("go").parentNode.insertBefore(e,$("go"))}
+ $("go").onclick=function(){load(i)}}
+function asm(){mode="asm";var ps=ASM.map(function(a,i){return i}).sort(function(){return Math.random()-.5}),sel=-1,n=0,A={};
+ ovs('<div class="bx" style="max-width:46em"><h2>🔧 Taller: arma el computador</h2><p class="k">Elige una pieza para leer su definición y haz clic en el espacio donde va.</p><div class="as"><div class="sl" id="sl"></div><div id="pc"></div></div><div id="pv" style="text-align:center;min-height:4.5em"></div><p class="df" id="df">Selecciona una pieza de la derecha.</p><div id="am"><button class="b" id="ph">💡 Pista</button></div></div>');
+ var sl=$("sl"),pc=$("pc"),df=$("df");$("ph").onclick=function(){if(sel<0){df.textContent="💡 Elige una pieza y lee su definición: te dice para qué sirve y eso indica su espacio.";return}var e=sl.children[sel];e.style.outline="4px solid #f2a33a";setTimeout(function(){e.style.outline=""},3000);df.textContent="💡 "+ASM[sel][1]+": busca el espacio marcado en naranja y compara su pista con la definición."};
+ ASM.forEach(function(a,i){var d=document.createElement("div");d.className="sx";d.innerHTML="<b>Espacio "+(i+1)+"</b><br>"+a[2];d.onclick=function(){if(d.className.indexOf("f")>-1)return;if(sel<0){df.textContent="👆 Primero elige una pieza de la derecha.";return}
+  var q=ASM[sel];if(q[0]===a[0]){lg("Funciones de componentes",1);G.score+=20;snd(660,.15,"square",.06);d.className="sx f";d.innerHTML="";d.appendChild(mk(q[0],40));d.insertAdjacentHTML("beforeend","<br><small>"+q[3]+"</small>");df.textContent="✅ "+q[3];A[sel].remove();sel=-1;
+   if(++n===ASM.length){fan();$("am").innerHTML='<p><b>🖥️ ¡Computador encendido! El hardware y el software trabajan juntos.</b></p><button class="b" id="ct">Continuar</button>';$("ct").onclick=function(){L.ad=1;hide();mode="play"}}}
+  else{lg("Funciones de componentes",0);snd(150,.3,"sawtooth",.06);df.textContent="❌ "+q[1]+" no va en ese espacio. Compara la pista del espacio con la definición de la pieza."}};sl.appendChild(d)});
+ ps.forEach(function(i){var b=document.createElement("button");b.className="o";b.appendChild(mk(ASM[i][0],32));b.appendChild(document.createTextNode(" "+ASM[i][1]));A[i]=b;b.onclick=function(){sel=i;$("pv").innerHTML="";$("pv").appendChild(mk(ASM[i][0],72));df.textContent="📖 "+ASM[i][3];Array.prototype.forEach.call(pc.children,function(z){z.style.borderColor=""});b.style.borderColor="#f2a33a"};pc.appendChild(b)})}
+function load(i){var d=LV[i];G.lv=i;G.sc0=G.score;G.co0=G.coins;G.lives=3;L={d:d,w:d.w,g:[],it:[],co:[],bug:[],cp:[],st:[],inv:[],open:0,th:TH[i]};
+ for(var r=0;r<13;r++){L.g[r]=[];for(var c=0;c<d.w;c++)L.g[r][c]=(r>10&&!d.gap.some(function(q){return c>=q[0]&&c<=q[1]}))?1:0}
+ d.pl.forEach(function(p){for(var k=0;k<p[2];k++)L.g[p[1]][p[0]+k]=1});
+ d.door.forEach(function(c,k){for(var r=7;r<=10;r++)L.g[r][c]=10+k});
+ L.it=d.it.map(function(a){return{t:a[2],x:a[0]*T+20,y:a[1]*T+20,got:0,cd:0}});
+ d.co.forEach(function(a){for(var k=0;k<a[2];k++)L.co.push({x:(a[0]+k)*T+20,y:a[1]*T+20,got:0})});
+ L.bug=d.bug.map(function(a){return{x:a[0]*T,y:11*T-26,a:a[0]*T,b:a[1]*T,d:1,dead:0}});
+ L.cp=d.cp.map(function(c){return{x:c*T,on:0}});
+ L.st=(d.st||[]).map(function(a,k){return{x:a[0]*T,need:a[1],txt:a[2],hint:a[3],kt:a[4],k:k,fixed:0,cd:0}});
+ L.rs={x:2*T,y:11*T-37};P={x:L.rs.x,y:L.rs.y,w:26,h:36,vx:0,vy:0,g:0,f:1,inv:0,co:0};cam=0;parts=[];tst={s:HINT[i],t:420};mode="play";hide()}
+
+function bnr(t,y,bg,fg){var ls=[""];t.split(" ").forEach(function(q){var l=ls.length-1;if((ls[l]+" "+q).length>64)ls.push(q);else ls[l]=(ls[l]+" "+q).trim()});x.font="bold 17px 'Trebuchet MS',sans-serif";var mw=30;ls.forEach(function(l){mw=Math.max(mw,x.measureText(l).width+30)});rc(x,bg,VW/2-mw/2,y,mw,ls.length*22+10,10);x.fillStyle=fg;x.textAlign="center";ls.forEach(function(l,k){x.fillText(l,VW/2,y+23+k*22)});x.textAlign="left";return y+ls.length*22+10}
+var HINT=["Mueve con ← → y salta con Espacio. Recoge las piezas ✨ y llega a la bandera.","Recupera los programas y resuelve los retos para abrir las puertas 🔒.","Lee la falla del robot arriba: busca 1 pieza física + 1 programa y llévalos a la estación ⚠️."];
+HOW[2]=["Lee en el letrero amarillo qué NO puede hacer el robot (por ejemplo, escribir).","Busca 1 pieza física (hardware) y 1 programa (software) que lo solucionen. En la mochila 🎒 caben solo 2 objetos.","Llévalos a la estación ⚠️. Si fallas recibes pistas; después de 3 intentos tendrás ayuda guiada.","Con las 3 reparaciones, ve al robot 🤖, arma su computador y responde la pregunta final."];
+var Q="Relación hardware-software";
+var AST=[[{c:Q,q:"Para ESCRIBIR un informe, ¿qué pieza física necesitas?",ok:"Teclado",no:["Monitor","Parlantes","Memoria RAM"],x:"El teclado es un dispositivo de entrada: envía las letras al computador."},{c:Q,q:"¿Qué programa te permite redactar y dar formato a un informe?",ok:"Procesador de texto",no:["Navegador web","Sistema operativo","Programa de dibujo"],x:"Un procesador de texto sirve para crear y editar documentos."}],
+[{c:Q,q:"Para MOSTRAR una página web en pantalla, ¿qué pieza física necesitas?",ok:"Monitor",no:["Teclado","Disco duro","Ratón"],x:"El monitor es un dispositivo de salida: muestra la información."},{c:Q,q:"¿Qué programa te permite visitar páginas web?",ok:"Navegador web",no:["Procesador de texto","Programa de dibujo","Videojuego"],x:"El navegador interpreta y muestra las páginas de internet."}],
+[{c:Q,q:"Para DIBUJAR moviendo el puntero, ¿qué pieza física necesitas?",ok:"Ratón",no:["Monitor","Impresora","Procesador"],x:"El ratón es un dispositivo de entrada que controla el puntero."},{c:Q,q:"¿Qué programa te permite crear dibujos digitales?",ok:"Programa de dibujo",no:["Navegador web","Sistema operativo","Procesador de texto"],x:"Los programas de dibujo ofrecen pinceles, colores y formas."}]];
+function ayuda(s){var a=AST[s.k];toast("💡 Ayuda del laboratorio: responde 2 preguntas guiadas para reparar.");ask("💡 Ayuda guiada (1/2)",a[0],function(ok){if(!ok){s.cd=120;return}ask("💡 Ayuda guiada (2/2)",a[1],function(ok2){if(!ok2){s.cd=120;return}s.fixed=1;L.inv.forEach(function(i){i.got=0});L.inv=[];door(s.k);fan();toast("✅ ¡Reparado con ayuda! Se abrió la puerta.")})})}
+LV[0].ch.m={c:"Clasificación de dispositivos",q:"Quieres ver en pantalla el resultado de tu tarea. ¿Qué tipo de dispositivo cumple esa función?",ok:"Uno de salida, como el monitor",no:["Uno de entrada, como el escáner","Uno de almacenamiento, como el disco duro","Uno de procesamiento, como la CPU"],x:"Los dispositivos de salida muestran al usuario la información que procesó el computador.",dr:0};
+LV[0].ch.a={c:"Funciones de componentes",q:"Editas un video sin guardarlo y se va la luz. ¿Qué componente perdió la información?",ok:"La memoria RAM, porque es temporal",no:["El disco duro, porque es temporal","El procesador, porque guarda archivos","El monitor, porque almacena imágenes"],x:"La RAM solo conserva datos mientras hay energía; el disco duro guarda de forma permanente.",dr:1};
+LV[0].ch.p={c:"Funciones de componentes",q:"¿Qué componente interpreta las instrucciones de un programa y realiza las operaciones?",ok:"El procesador (CPU)",no:["La memoria RAM","La placa base","El disco duro"],x:"La RAM guarda datos, la placa base conecta las piezas y el disco duro almacena; el procesador ejecuta.",dr:2};
+LV[1].ch.o={c:"Reconocimiento de programas",q:"¿Cuál de estas funciones corresponde al sistema operativo?",ok:"Gestionar la memoria y los archivos y permitir abrir programas",no:["Crear presentaciones con diapositivas","Mostrar páginas de internet","Dibujar imágenes con pinceles"],x:"El sistema operativo administra los recursos del equipo; lo demás son aplicaciones.",dr:0};
+LV[1].ch.b={c:"Reconocimiento de programas",q:"Para comparar información de varias páginas web, ¿qué tipo de programa usas?",ok:"Navegador web (por ejemplo, Firefox)",no:["Procesador de texto (por ejemplo, Writer)","Sistema operativo (por ejemplo, Linux)","Aplicación de dibujo (por ejemplo, Paint)"],x:"El navegador es la aplicación para visitar y comparar páginas web.",dr:1};
+LV[1].ch.g={c:"Diferencia hardware/software",q:"Un videojuego instalado en el computador es…",ok:"Software de aplicación que necesita hardware para ejecutarse",no:["Hardware, porque se usa con un control","Software de sistema, igual que el sistema operativo","Hardware de salida, porque tiene gráficos"],x:"Es un programa (software de aplicación); el control y la pantalla sí son hardware.",dr:2};
+LV[2].fin={c:"Importancia de la relación",q:"Reinicio final: el robot reparado funciona porque…",ok:"El software da las instrucciones y el hardware las ejecuta",no:["El hardware piensa por sí solo, sin software","El software es la parte física del robot","Con solo software el robot puede moverse sin piezas"],x:"Hardware y software se necesitan: uno sin el otro no sirve."};
+
+var PD={p:["Procesador (CPU)","Es el «cerebro»: ejecuta las instrucciones y hace los cálculos.","Se instala en el socket de la placa base.","cpu"],a:["Memoria RAM","Memoria rápida y temporal donde se guarda lo que estás usando; se borra al apagar.","Se inserta en la ranura de memoria de la placa base.","ram"],h:["Disco duro","Almacena tus archivos y programas de forma permanente.","Va en la bahía de almacenamiento.","disk"],f:["Fuente de poder","Convierte la electricidad del enchufe en la energía que necesitan las piezas.","Va en su compartimento y alimenta la placa.","psu"],m:["Monitor","Dispositivo de salida: muestra imágenes y texto.","Se conecta al puerto de video con un cable.","video"],k:["Teclado","Dispositivo de entrada: envía letras y números al computador.","Se conecta a un puerto USB.","usb"],r:["Ratón","Dispositivo de entrada: mueve el puntero y permite hacer clic.","Se conecta a un puerto USB.","usb"],o:["Sistema operativo","Software que administra el hardware y permite usar otros programas.","Se instala en el disco cuando todo el hardware está listo.","soft"],w:["Procesador de texto","Programa (software de aplicación) para escribir y editar documentos.","Se instala después del sistema operativo.","apps"]};
+var SLOTS=[["cpu","Socket del procesador",10,10,22,30],["ram","Ranura de memoria",38,10,10,40],["psu","Compartimento de la fuente",8,64,24,28],["disk","Bahía de almacenamiento",38,64,26,28],["video","Puerto de video",71,5,25,17],["usb1","Puerto USB 1",71,26,25,17],["usb2","Puerto USB 2",71,47,25,17],["soft","Instalar sistema operativo",71,68,25,13],["apps","Instalar programa",71,84,25,13]];
+var CK={cpu:"Procesador en su socket",ram:"RAM en su ranura",psu:"Fuente de poder",disk:"Disco duro en su bahía",video:"Monitor al puerto de video",usb1:"Teclado o ratón al USB 1",usb2:"Teclado o ratón al USB 2",soft:"Instalar el sistema operativo",apps:"Instalar un programa"};
+function dim(){mode="dim";var sel=null,fill={},els={},tb={},ids=SLOTS.map(function(a){return a[0]}),hw=["cpu","ram","psu","disk","video","usb1","usb2"];
+ ovs('<div class="bx" style="max-width:62em;text-align:left"><h2 style="text-align:center">🧰 Dimensión final: repara y arma un computador</h2><p class="k" style="text-align:center">1) Elige una pieza de la bandeja y lee qué es. 2) Haz clic en el espacio de la placa donde va. 3) Primero el hardware, luego el software. ¿Dudas? Pulsa 💡 Pista.</p><div class="dm"><div class="sc" id="sc"><div class="pcb"></div></div><div><ul class="ck" id="ck"></ul><div class="pf" id="pf">Selecciona una pieza para ver su definición.</div></div></div><div class="tr" id="tr"></div><p class="df" id="ms">Empieza por el hardware: procesador, memoria, disco y fuente de poder.</p><div id="ac"><button class="b" id="ht">💡 Pista</button></div></div>');
+ var sc=$("sc"),ms=$("ms"),pf=$("pf"),tr=$("tr");
+ function card(k){var p=PD[k];pf.innerHTML="";pf.appendChild(mk(k,64));pf.insertAdjacentHTML("beforeend","<br><b>"+p[0]+"</b><br>"+p[1]+"<br><i>📍 "+p[2]+"</i>")}
+ function list(){$("ck").innerHTML=ids.map(function(i){return"<li>"+(fill[i]?"✅":"⬜")+" "+CK[i]+"</li>"}).join("")}
+ function put(s){if(fill[s])return;if(!sel){ms.textContent="👆 Primero elige una pieza de la bandeja.";return}
+  var p=PD[sel],ok=p[3]===s||(p[3]==="usb"&&(s==="usb1"||s==="usb2")),why="";
+  if(ok&&s==="soft"&&!hw.every(function(h){return fill[h]}))ok=false,why="Primero instala y conecta todo el hardware: el software necesita un equipo armado.";
+  if(ok&&s==="apps"&&!fill.soft)ok=false,why="Primero instala el sistema operativo: los programas se instalan sobre él.";
+  if(!ok){lg("Ensamblaje de computadores",0);snd(150,.3,"sawtooth",.06);ms.textContent="❌ "+(why||p[0]+" no va ahí. "+p[2]);return}
+  fill[s]=sel;lg("Ensamblaje de computadores",1);G.score+=15;snd(660,.15,"square",.06);var e=els[s];e.className="sk f";e.innerHTML="";e.appendChild(mk(sel,40));e.insertAdjacentHTML("beforeend","<small>"+p[0]+(hw.indexOf(s)>3?" 🔌":"")+"</small>");
+  card(sel);ms.textContent="✅ "+p[0]+" instalado. "+p[1];tb[sel].remove();sel=null;list();
+  if(ids.every(function(i){return fill[i]})){ms.textContent+=" ¡Todo conectado! Ahora enciende el computador.";$("ac").innerHTML='<button class="b" id="on">⏻ Encender el computador</button>';$("on").onclick=boot}}
+ function boot(){tr.innerHTML="";$("ac").innerHTML="";var ln=["Comprobando procesador… OK","Comprobando memoria RAM… OK","Leyendo disco duro… OK","Cargando el sistema operativo…","Abriendo el procesador de texto…","✅ ¡Computador funcionando! El hardware ejecuta las instrucciones del software."],t=0;ms.innerHTML="";
+  (function n(){if(t<ln.length){ms.innerHTML+=ln[t++]+"<br>";snd(400+t*80,.1,"square",.05);setTimeout(n,800)}else{fan();G.score+=100;G.badges.push("🧰");$("ac").innerHTML='<button class="b" id="fi">Ver resultados</button>';$("fi").onclick=res}})()}
+ SLOTS.forEach(function(a){var d=document.createElement("div");d.className="sk";d.style.cssText="left:"+a[2]+"%;top:"+a[3]+"%;width:"+a[4]+"%;height:"+a[5]+"%";d.textContent=a[1];els[a[0]]=d;d.onclick=function(){put(a[0])};sc.appendChild(d)});
+ Object.keys(PD).sort(function(){return Math.random()-.5}).forEach(function(k){var b=document.createElement("button");b.className="o";b.appendChild(mk(k,30));b.appendChild(document.createTextNode(" "+PD[k][0]));tb[k]=b;b.onclick=function(){sel=k;card(k);Object.keys(tb).forEach(function(q){tb[q].style.borderColor=""});b.style.borderColor="#f2a33a"};tr.appendChild(b)});
+ $("ht").onclick=function(){var s;if(sel){var g=PD[sel][3];s=g==="usb"?(fill.usb1?"usb2":"usb1"):g}else s=ids.filter(function(i){return!fill[i]})[0];if(!s)return;var e=els[s];e.classList.add("hl");setTimeout(function(){e.classList.remove("hl")},2500);ms.textContent=sel?"💡 "+PD[sel][0]+": "+PD[sel][2]:"💡 Siguiente paso: "+CK[s]+". Busca la pieza cuya definición coincida."};
+ list()}
+function over(){ovs('<div class="bx"><div class="big">🔋</div><h2>¡Sin energía!</h2><p>No pasa nada: repasa lo que viste e inténtalo otra vez. El nivel se reinicia con 3 vidas.</p><button class="b" id="go">Reintentar nivel</button></div>');
+ $("go").onclick=function(){G.log=G.log.filter(function(e){return e.lv!==G.lv});G.score=G.sc0;G.coins=G.co0;load(G.lv)}}
+function complete(){mode="win";G.score+=100+G.lives*20;G.badges.push(LV[G.lv].e);fan();for(var i=0;i<80;i++)spawn(P.x+13,P.y-30,1,["#f2a33a","#4de0c0","#ff6bd6","#fff"][i%4],14);
+ setTimeout(function(){var l=G.lv,last=l===2;ovs('<div class="bx"><div class="big">'+LV[l].e+'</div><p class="k">¡Insignia obtenida!</p><h2>'+LV[l].ins+'</h2><p>Puntos: <b>'+G.score+'</b> · Vidas restantes: '+G.lives+'</p><button class="b" id="go">'+(last?"Ir a la dimensión final":"Siguiente nivel")+'</button></div>');
+ $("go").onclick=function(){last?dim():intro(l+1)}},1500)}
+function hurt(){if(P.inv>0)return;G.lives--;G.deaths++;shake=14;snd(180,.35,"sawtooth",.07,60);spawn(P.x+13,P.y+18,18,"#ff5d73",6);
+ if(G.lives<=0){mode="over";setTimeout(over,800);return}P.x=L.rs.x;P.y=L.rs.y;P.vx=P.vy=0;P.inv=100;toast("💥 ¡Auch! Vuelves al último punto de control")}
+function door(k){var c=L.d.door[k];for(var r=7;r<=10;r++){L.g[r][c]=0;spawn(c*T+20,r*T+20,8,"#ffb703",5)}L.open++;snd(130,.5,"sawtooth",.08,500)}
+function ask(title,q,done){AS={q:q,done:done,o:[q.ok].concat(q.no).map(function(t,i){return{t:t,ok:!i}}).sort(function(){return Math.random()-.5}),lock:0};mode="ask";
+ $("ask").innerHTML='<p><b>'+title+'</b> — reto rápido</p><p>'+q.q+'</p>'+AS.o.map(function(o,i){return'<button class="o" data-i="'+i+'">'+(i+1)+'. '+o.t+'</button>'}).join("")+'<p id="fb" class="k"></p>';$("ask").hidden=false;
+ Array.prototype.forEach.call($("ask").querySelectorAll(".o"),function(b){b.onclick=function(){pick(+b.dataset.i)}})}
+function pick(i){if(!AS||AS.lock||!AS.o[i])return;AS.lock=1;var o=AS.o[i],q=AS.q,bs=$("ask").querySelectorAll(".o");lg(q.c,o.ok);
+ Array.prototype.forEach.call(bs,function(b,k){if(AS.o[k].ok)b.className="o g";else if(k===i)b.className="o x"});
+ $("fb").textContent=(o.ok?"✅ ¡Correcto! +50 puntos. ":"❌ No es esa. Respuesta: "+q.ok+". ")+q.x;
+ if(o.ok){G.score+=50;snd(660,.12,"square",.06);setTimeout(function(){snd(990,.2,"square",.06)},120)}else snd(150,.3,"sawtooth",.06);
+ $("ask").insertAdjacentHTML("beforeend",'<button class="b" id="nx">Continuar ▶</button>');$("nx").onclick=function(){if(!AS)return;$("ask").hidden=true;mode="play";var f=AS.done;AS=null;f(o.ok)}}
+// ---- física ----
+function sol(c,r){if(c<0||c>=L.w)return true;if(r<0||r>12)return false;var v=L.g[r][c];return v===1||v>=10}
+function mv(a){if(a)P.g=0,P.y+=P.vy;else P.x+=P.vx;var x0=Math.floor(P.x/T),x1=Math.floor((P.x+P.w-.01)/T),y0=Math.floor(P.y/T),y1=Math.floor((P.y+P.h-.01)/T);
+ for(var r=y0;r<=y1;r++)for(var c=x0;c<=x1;c++)if(sol(c,r)){if(!a){P.x=P.vx>0?c*T-P.w:(c+1)*T;P.vx=0}else{if(P.vy>0){P.y=r*T-P.h;P.g=1}else P.y=(r+1)*T;P.vy=0}return}}
+function upd(){tm++;parts.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.25;p.l--});parts=parts.filter(function(p){return p.l>0});if(shake>0)shake--;if(mode==="menu"&&L&&P){cam=(cam+1.4)%Math.max(1,L.w*T-VW);P.x=cam+260;P.y=11*T-37;P.vx=3;P.g=1;P.f=1}if(mode!=="play")return;
+ if(tst&&--tst.t<=0)tst=null;jh=keys.arrowup||keys.w||keys[" "];
+ var l=keys.arrowleft||keys.a,r=keys.arrowright||keys.d,tg=((r?1:0)-(l?1:0))*4.6;P.vx+=(tg-P.vx)*(P.g?.3:.18);if(tg)P.f=tg>0?1:-1;
+ P.co=P.g?7:P.co-1;jbuf--;if(jbuf>0&&P.co>0){P.vy=-13;P.co=0;jbuf=0;P.g=0;snd(420,.15,"square",.05,800)}
+ if(!jh&&P.vy<-4)P.vy+=.9;P.vy=Math.min(P.vy+.62,14);mv(0);mv(1);if(P.inv>0)P.inv--;
+ var d=L.d,px=P.x,py=P.y;if(py>VH+60)hurt();
+ L.it.forEach(function(i){if(i.cd>0)i.cd--;if(i.got||Math.hypot(px+13-i.x,py+18-i.y)>32)return;var I=INFO[i.t];
+  if(d.ch){var q=d.ch[i.t];if(q){if(i.cd<=0)ask(I[1],q,function(ok){if(ok){i.got=1;door(q.dr);toast(I[0]+" "+I[1]+" recuperado: se abrió una puerta")}else i.cd=120})}
+   else{i.got=1;G.score+=20;snd(780,.15,"triangle",.07);spawn(i.x,i.y,10,"#fff",5);toast(I[0]+" "+I[1]+": "+I[2])}}
+  else if(L.inv.length<2){i.got=1;L.inv.push(i);snd(780,.15,"triangle",.07);spawn(i.x,i.y,10,"#fff",5);toast(I[0]+" "+I[1]+": "+I[2])}
+  else if(tm%90===0)toast("Mochila llena (2 objetos). Ve a la estación de reparación.")});
+ L.co.forEach(function(c){if(!c.got&&Math.hypot(px+13-c.x,py+18-c.y)<28){c.got=1;G.coins++;G.score+=10;snd(1200,.1,"square",.04);spawn(c.x,c.y,6,"#7df9ff",4)}});
+ L.cp.forEach(function(c){if(!c.on&&Math.abs(px-c.x)<30&&py>8*T){c.on=1;L.rs={x:c.x+7,y:11*T-37};toast("🚩 Punto de control guardado");snd(520,.2,"triangle",.07)}});
+ for(var k=0;k<d.sp.length;k++)if(hit(px,py,P.w,P.h,d.sp[k][0]*T+6,d.sp[k][1]*T+24,28,16)){hurt();return}
+ for(k=0;k<L.bug.length;k++){var b=L.bug[k];if(b.dead)continue;b.x+=b.d*1.1;if(b.x<b.a||b.x>b.b)b.d*=-1;
+  if(hit(px,py,P.w,P.h,b.x,b.y,34,26)){if(P.vy>0&&py+P.h-b.y<20){b.dead=1;P.vy=-9;G.score+=10;snd(300,.15,"square",.06,700);spawn(b.x+17,b.y+10,10,"#ff5d73",6)}else{hurt();return}}}
+ L.st.forEach(function(s){if(s.cd>0)s.cd--;if(s.fixed||s.cd>0||!hit(px,py,P.w,P.h,s.x-10,8*T,60,3*T))return;if(s.f>=3){s.cd=300;ayuda(s);return}
+  if(L.inv.length<2){toast(s.txt);s.cd=150;return}
+  var ok=L.inv.map(function(i){return i.t}).sort().join("")===s.need.split("").sort().join("");lg("Relación hardware-software",ok);
+  if(ok){s.fixed=1;G.score+=50;L.inv=[];door(s.k);fan();toast("✅ ¡Falla reparada! Se abrió la puerta")}
+  else{var m=pista(s);s.f=(s.f||0)+1;L.inv.forEach(function(i){i.got=0});L.inv=[];s.cd=150;snd(150,.3,"sawtooth",.06);toast("❌ "+m+(s.f>=3?" 💡 ¡Ayuda desbloqueada! Toca la estación otra vez.":" Objetos devueltos."))}});
+ if(Math.abs(px-d.goal*T)<40&&py>8*T){if(d.fin){if(!L.fc||L.fc<=0)L.ad?ask("🤖 Núcleo del robot",d.fin,function(ok){if(ok)complete();else L.fc=150}):asm();if(L.fc>0)L.fc--}else complete()}
+ if(L.fc>0&&mode==="play")L.fc--;
+ cam+=(Math.max(0,Math.min(L.w*T-VW,px-VW/2+13))-cam)*.12}
+// ---- dibujo ----
+function lay(par,step,fn){var o=cam*par,b=Math.floor(o/step);for(var j=0;j<=VW/step+1;j++){var k=b+j;fn(k*step-o,k)}}
+function bg(){var th=L.th,g=x.createLinearGradient(0,0,0,VH);g.addColorStop(0,th.a);g.addColorStop(1,th.b);x.fillStyle=g;x.fillRect(0,0,VW,VH);var i=L.d===LV[0]?0:L.d===LV[1]?1:2;
+ if(i===0){lay(.2,260,function(p,k){var h=((k*7919)%5+5)%5;x.fillStyle="#0e3a3a";x.fillRect(p+20,120+h*30,140,100);x.fillStyle="#1b6a60";for(var q=0;q<7;q++)x.fillRect(p+14,128+h*30+q*13,6,6),x.fillRect(p+160,128+h*30+q*13,6,6);x.fillStyle="#4de0c0";x.fillRect(p+80,150+h*30,14,14)});
+  x.strokeStyle="#4de0c055";x.lineWidth=3;lay(.5,200,function(p,k){var h=((k*31)%4+4)%4;x.beginPath();x.moveTo(p,200+h*60);x.lineTo(p+80,200+h*60);x.lineTo(p+120,240+h*60);x.lineTo(p+200,240+h*60);x.stroke();x.fillStyle="#4de0c0";x.beginPath();x.arc(p+200,240+h*60,6,0,7);x.fill()})}
+ else if(i===1){lay(.25,300,function(p,k){var h=((k*7)%4+4)%4,y=80+h*55+Math.sin(tm/40+k)*8;x.fillStyle="#ffffff22";x.fillRect(p,y,170,110);x.fillStyle="#ff6bd655";x.fillRect(p,y,170,18);x.fillStyle="#fff8";x.fillRect(p+8,y+6,6,6);x.fillRect(p+20,y+6,6,6);for(var q=0;q<4;q++)x.fillRect(p+12,y+32+q*18,40+((k+q)%3)*30,6)});
+  x.fillStyle="#7df9ff44";x.font="bold 40px monospace";lay(.55,170,function(p,k){x.fillText(["{ }","</>","01","#!"][((k%4)+4)%4],p,150+((k*37)%5+5)%5*60+Math.sin(tm/30+k)*10)})}
+ else{lay(.2,240,function(p,k){x.fillStyle="#ffffff10";x.fillRect(p+10,60,200,330);x.fillStyle="#5ab0ff33";x.fillRect(p+30,90,160,90);x.fillStyle="#ffd16655";x.fillRect(p+30,200,160,8);x.fillRect(p+30,220,100,8)});
+  lay(.5,200,function(p,k){x.fillStyle="#ffffff18";x.fillRect(p,0,16,VH);x.fillStyle=(tm+k*17)%90<45?"#ffd166":"#3a4a66";x.beginPath();x.arc(p+8,300,5,0,7);x.fill()})}}
+function ents(){var d=L.d;x.fillStyle="#cfd8dc";d.sp.forEach(function(s){var px=s[0]*T-cam,py=s[1]*T;for(var q=0;q<2;q++){x.beginPath();x.moveTo(px+q*20,py+T);x.lineTo(px+q*20+10,py+22);x.lineTo(px+q*20+20,py+T);x.fill()}});
+ L.cp.forEach(function(c){var px=c.x+13-cam;x.fillStyle="#889";x.fillRect(px,10*T-30,4,70);x.fillStyle=c.on?"#4de07a":"#ff6b6b";x.fillRect(px+4,10*T-30,22,14)});
+ L.st.forEach(function(s){var px=s.x-cam;x.fillStyle="#455a78";x.fillRect(px-6,8*T,50,3*T);x.fillStyle=s.fixed?"#1b8a5a":"#10202e";x.fillRect(px,8*T+8,38,40);x.font="24px sans-serif";x.fillText(s.fixed?"✅":"⚠️",px+6,8*T+38);x.fillStyle=(tm%40<20)?"#ff5d73":"#4a2030";if(s.fixed)x.fillStyle="#4de07a";x.beginPath();x.arc(px+19,8*T+66,6,0,7);x.fill();x.fillStyle="#cfe";x.font="bold 11px sans-serif";x.fillText("REPARAR",px-2,8*T+100);if(!s.fixed){rc(x,"#fff",px-36,8*T-62,110,56,10);ico(x,"p",px-8,8*T-42,.55);x.fillStyle="#10282a";x.font="bold 18px sans-serif";x.fillText("+",px+12,8*T-36);ico(x,"o",px+36,8*T-42,.55);x.font="bold 10px sans-serif";x.fillText("físico + programa",px-28,8*T-14)}});
+ x.font="28px sans-serif";L.it.forEach(function(i){if(i.got)return;var px=i.x-cam,py=i.y+Math.sin(tm/15+i.x)*4;x.fillStyle="rgba(255,255,160,"+(.25+.1*Math.sin(tm/8))+")";x.beginPath();x.arc(px,py,24,0,7);x.fill();x.fillStyle="#ffffffcc";x.beginPath();x.arc(px,py,18,0,7);x.fill();ico(x,i.t,px,py,.85)});
+ L.co.forEach(function(c){if(c.got)return;var px=c.x-cam,w=Math.abs(Math.cos(tm/12+c.x))*9+2;x.fillStyle="#7df9ff";x.beginPath();x.moveTo(px,c.y-12);x.lineTo(px+w,c.y);x.lineTo(px,c.y+12);x.lineTo(px-w,c.y);x.fill();x.fillStyle="#fff";x.fillRect(px-1,c.y-6,2,6)});
+ L.bug.forEach(function(b){if(b.dead)return;var px=b.x-cam;x.strokeStyle="#7a1d2b";x.lineWidth=2;for(var q=0;q<3;q++){var o=Math.sin(tm/5+q*2)*4;x.beginPath();x.moveTo(px+8+q*9,b.y+20);x.lineTo(px+4+q*9+o,b.y+27);x.stroke()}x.fillStyle="#ff5d73";x.beginPath();x.ellipse(px+17,b.y+14,17,12,0,0,7);x.fill();x.fillStyle="#fff";x.fillRect(px+(b.d>0?20:7),b.y+7,8,7);x.fillStyle="#000";x.fillRect(px+(b.d>0?24:9),b.y+9,3,4)});
+ var gx=d.goal*T-cam;x.fillStyle="#aab";x.fillRect(gx+10,7*T,5,4*T);x.fillStyle="#f2a33a";x.beginPath();x.moveTo(gx+15,7*T);x.lineTo(gx+55,7*T+14+Math.sin(tm/8)*3);x.lineTo(gx+15,7*T+28);x.fill();if(d.fin){x.font="30px sans-serif";x.fillText("🤖",gx-4,7*T-6)}}
+function hud(){x.fillStyle="#000a";x.fillRect(0,0,VW,34);x.fillStyle="#fff";x.font="bold 16px 'Trebuchet MS',sans-serif";
+ x.fillText("❤️".repeat(G.lives)+"🖤".repeat(3-G.lives)+"  ⭐"+G.score+"  💎"+G.coins,10,23);var d=L.d,t;
+ if(d.st){var s=L.st.filter(function(q){return!q.fixed})[0];t=s?"Reparación "+(3-L.st.filter(function(q){return!q.fixed}).length)+"/3: "+s.txt:"¡Todo reparado! Ve al robot 🤖 y arma su computador"}
+ else t="Piezas "+L.it.filter(function(i){return i.got}).length+"/"+L.it.length+"  ·  Puertas "+L.open+"/3  ·  Llega a la bandera 🏁";
+ var by=(mode==="ask"||mode==="asm"||mode==="dim"||mode==="menu")?0:bnr(t,38,"#f2a33a","#10282a");
+ if(d.st){for(var i=0;i<2;i++){x.fillStyle="#000a";x.fillRect(10+i*50,VH-54,44,44);x.strokeStyle="#f2a33a";x.strokeRect(10+i*50,VH-54,44,44);if(L.inv[i]){x.font="28px sans-serif";ico(x,L.inv[i].t,32+i*50,VH-32,.8)}}}
+ if(tst&&by)bnr(tst.s,by+8,"#000d","#fff")}
+function draw(){if(!L||mode==="menu"&&!P)return;x.setTransform(2,0,0,2,0,0);x.save();if(shake>0)x.translate((Math.random()-.5)*8,(Math.random()-.5)*8);bg();tiles();ents();player();
+ parts.forEach(function(p){x.fillStyle=p.c;x.globalAlpha=Math.min(1,p.l/20);x.fillRect(p.x-cam,p.y,5,5)});x.globalAlpha=1;x.restore();hud()}
+// ---- resultados ----
+function dif(){var m={};G.log.forEach(function(e){if(!e.ok)m[e.c]=(m[e.c]||0)+1});return Object.keys(m).map(function(k){return[k,m[k]]}).sort(function(a,b){return b[1]-a[1]})}
+function res(){mode="menu";var tot=G.log.length,ac=G.log.filter(function(e){return e.ok}).length,p=pct(ac,tot),t=p>=85?["🏅","Maestro de la tecnología"]:p>=60?["🎖️","Experto digital"]:["🌱","Aprendiz tecnológico"],d=dif();
+ var rows=LV.map(function(n,i){var a=G.log.filter(function(e){return e.lv===i}),c=a.filter(function(e){return e.ok}).length;return"<tr><td>"+n.n.split(": ")[1]+"</td><td>"+c+"/"+a.length+"</td><td>"+pct(c,a.length)+"%</td></tr>"}).join("");
+ ovs('<div class="bx"><div class="big">'+t[0]+'</div><h2>'+t[1]+'</h2><p>Insignias: '+G.badges.join(" ")+'</p><div class="kp"><div><b>'+G.score+'</b>Puntaje</div><div><b>'+ac+'</b>Retos logrados</div><div><b>'+(tot-ac)+'</b>Errores</div><div><b>'+p+'%</b>Aciertos</div></div><table><tr><th>Nivel</th><th>Aciertos</th><th>%</th></tr>'+rows+'</table><p class="k">Cristales: '+G.coins+' · Vidas perdidas: '+G.deaths+'</p><b>Conceptos para reforzar</b>'+(d.length?'<ul>'+d.map(function(q){return"<li>"+q[0]+" ("+q[1]+")</li>"}).join("")+"</ul>":"<p>¡Ninguno! Excelente trabajo.</p>")+'<button class="b" id="dl">⬇️ Descargar CSV</button><button class="b" id="re">Volver a jugar</button></div>');
+ $("dl").onclick=csv;$("re").onclick=menu}
+function csv(){var q=function(s){return'"'+String(s).replace(/"/g,'""')+'"'},tot=G.log.length,ac=G.log.filter(function(e){return e.ok}).length;
+ var r=[["Sección","Dato","Valor"],["Resumen","Fecha",new Date().toISOString().slice(0,10)],["Resumen","Puntaje total",G.score],["Resumen","Retos educativos acertados",ac],["Resumen","Errores",tot-ac],["Resumen","Porcentaje de aciertos",pct(ac,tot)+"%"],["Resumen","Cristales recogidos",G.coins],["Resumen","Vidas perdidas",G.deaths]];
+ LV.forEach(function(n,i){var a=G.log.filter(function(e){return e.lv===i}),c=a.filter(function(e){return e.ok}).length;r.push(["Nivel "+(i+1),"Aciertos / intentos",c+" / "+a.length])});
+ dif().forEach(function(d){r.push(["Reforzar",d[0],d[1]+" errores"])});r.push(["Detalle","Nivel | Concepto","Resultado"]);
+ G.log.forEach(function(e){r.push(["Detalle","Nivel "+(e.lv+1)+" | "+e.c,e.ok?"Acierto":"Error"])});
+ var u=URL.createObjectURL(new Blob(["\uFEFF"+r.map(function(f){return f.map(q).join(",")}).join("\r\n")],{type:"text/csv;charset=utf-8"})),a=document.createElement("a");a.href=u;a.download="resultados_mision_plataformas.csv";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},1000)}
+// ---- entrada y bucle ----
+window.addEventListener("keydown",function(e){var k=e.key.toLowerCase();if([" ","arrowup","arrowdown","arrowleft","arrowright"].indexOf(k)>-1)e.preventDefault();
+ if(k==="m"){$("mu").click();return}if(mode==="ask"){if(AS&&AS.lock){if(k==="enter"||k===" ")$("nx").click();return}if("1234".indexOf(k)>-1&&k.length===1)pick(+k-1);return}
+ if(!keys[k]&&(k===" "||k==="arrowup"||k==="w"))jbuf=7;keys[k]=1});
+window.addEventListener("keyup",function(e){keys[e.key.toLowerCase()]=0});window.addEventListener("blur",function(){keys={}});
+var last=0,acc=0;function loop(t){acc+=Math.min(50,t-last);last=t;while(acc>=16.67){upd();acc-=16.67}draw();requestAnimationFrame(loop)}
+menu();requestAnimationFrame(loop);
+</script></body></html>
